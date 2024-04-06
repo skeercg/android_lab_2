@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">Animals App</string>
+    <string name="search_hint">Search Animal</string>
+    <string name="animal_scientific_name">Scientific Name: %s</string>
+    <string name="animal_habitat">Habitat: %s</string>
+    <string name="animal_diet">Diet: %s</string>
+    <string name="animal_life_span">Life Span: %s</string>>
 </resources>
