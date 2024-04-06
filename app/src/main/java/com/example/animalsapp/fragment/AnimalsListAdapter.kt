@@ -3,6 +3,7 @@ package com.example.animalsapp.fragment
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.animalsapp.R
 import com.example.animalsapp.data.model.Animal
@@ -20,7 +21,10 @@ class AnimalsListAdapter : RecyclerView.Adapter<AnimalsListAdapter.ViewHolder>()
             with(binding) {
                 animalName.text = animal.name
                 animalScientificName.text =
-                    context.getString(R.string.animal_scientific_name, animal.taxonomy.scientificName)
+                    context.getString(
+                        R.string.animal_scientific_name,
+                        animal.taxonomy.scientificName
+                    )
                 animalDiet.text =
                     context.getString(R.string.animal_diet, animal.characteristics.diet)
                 animalHabitat.text =
@@ -32,11 +36,14 @@ class AnimalsListAdapter : RecyclerView.Adapter<AnimalsListAdapter.ViewHolder>()
     }
 
     fun setItems(animals: List<Animal>?) {
+        if (animals == null) return
+
+        val diffResult = DiffUtil.calculateDiff(AnimalsListDiffUtil(items, animals))
+
         items.clear()
-        if (animals != null) {
-            items.addAll(animals)
-        }
-        notifyDataSetChanged()
+        items.addAll(animals)
+
+        diffResult.dispatchUpdatesTo(this)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
