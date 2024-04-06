@@ -36,12 +36,12 @@ class AnimalsListAdapter : RecyclerView.Adapter<AnimalsListAdapter.ViewHolder>()
     }
 
     fun setItems(animals: List<Animal>?) {
-        if (animals == null) return
+        val newItems = animals ?: arrayListOf()
 
-        val diffResult = DiffUtil.calculateDiff(AnimalsListDiffUtil(items, animals))
+        val diffResult = DiffUtil.calculateDiff(AnimalsListDiffUtil(items, newItems))
 
         items.clear()
-        items.addAll(animals)
+        items.addAll(newItems)
 
         diffResult.dispatchUpdatesTo(this)
     }
